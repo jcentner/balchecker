@@ -2,29 +2,28 @@
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
+
 [project]
-name = "balchecker/"
-dynamic = ["version"]
-description = ''
+name = "balchecker"
+version = "0.1.0"
+description = "A Flask webapp to connect to Phantom wallet and check a custom token balance."
 readme = "README.md"
-requires-python = ">=3.8"
-license = "MIT"
-keywords = []
 authors = [
   { name = "Jacob Centner", email = "31484717+jcentner@users.noreply.github.com" },
 ]
-classifiers = [
-  "Development Status :: 4 - Beta",
-  "Programming Language :: Python",
-  "Programming Language :: Python :: 3.8",
-  "Programming Language :: Python :: 3.9",
-  "Programming Language :: Python :: 3.10",
-  "Programming Language :: Python :: 3.11",
-  "Programming Language :: Python :: 3.12",
-  "Programming Language :: Python :: Implementation :: CPython",
-  "Programming Language :: Python :: Implementation :: PyPy",
+dependencies = [
+  "Flask>=2.0",
+  "solana>=0.20",
 ]
-dependencies = []
+
+[tool.hatch.envs.default]
+dependencies = [
+  "Flask>=2.0",
+  "solana>=0.20",
+]
+
+[tool.hatch.commands]
+start = { command = "python app.py" }
 
 [project.urls]
 Documentation = "https://github.com/Jacob Centner/balchecker/#readme"
