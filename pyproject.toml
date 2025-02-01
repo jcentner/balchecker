@@ -30,9 +30,6 @@ Documentation = "https://github.com/Jacob Centner/balchecker/#readme"
 Issues = "https://github.com/Jacob Centner/balchecker//issues"
 Source = "https://github.com/Jacob Centner/balchecker/"
 
-[tool.hatch.version]
-path = "src/balchecker//__about__.py"
-
 [tool.hatch.envs.types]
 extra-dependencies = [
   "mypy>=1.0.0",
@@ -44,9 +41,6 @@ check = "mypy --install-types --non-interactive {args:src/balchecker/ tests}"
 source_pkgs = ["balchecker/", "tests"]
 branch = true
 parallel = true
-omit = [
-  "src/balchecker//__about__.py",
-]
 
 [tool.coverage.paths]
 balchecker/ = ["src/balchecker/", "*/balchecker//src/balchecker/"]

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Phantom Token Balance Checker</title>
+</head>
+<body>
+  <h1>Phantom Token Balance Checker</h1>
+  <button id="connectButton">Connect to Phantom Wallet</button>
+
+  <div id="walletInfo" style="display:none;">
+    <p>Wallet: <span id="walletAddress"></span></p>
+    <button id="checkBalance">Check Token Balance</button>
+    <p>Token Balance: <span id="tokenBalance"></span></p>
+  </div>
+
+  <script>
+    const connectButton = document.getElementById('connectButton');
+    const walletInfoDiv = document.getElementById('walletInfo');
+    const walletAddressSpan = document.getElementById('walletAddress');
+    const tokenBalanceSpan = document.getElementById('tokenBalance');
+    const checkBalanceButton = document.getElementById('checkBalance');
+
+    // Connect to Phantom wallet.
+    connectButton.addEventListener('click', async () => {
+      if (window.solana && window.solana.isPhantom) {
+        try {
+          const resp = await window.solana.connect();
+          const walletAddress = resp.publicKey.toString();
+          walletAddressSpan.textContent = walletAddress;
+          walletInfoDiv.style.display = 'block';
+        } catch (err) {
+          console.error("Error connecting to Phantom:", err);
+        }
+      } else {
+        alert("Phantom Wallet not found. Please install it.");
+      }
+    });
+
+    // Request the token balance from the Flask backend.
+    checkBalanceButton.addEventListener('click', async () => {
+      const walletAddress = walletAddressSpan.textContent;
+      try {
+        const res = await fetch(`/balance?wallet=${walletAddress}`);
+        const data = await res.json();
+        if (data.error) {
+          tokenBalanceSpan.textContent = 'Error: ' + data.error;
+        } else {
+          tokenBalanceSpan.textContent = data.balance;
+        }
+      } catch (err) {
+        console.error("Error fetching balance:", err);
+      }
+    });
+  </script>
+</body>
+</html>
