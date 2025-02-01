@@ -1,16 +1,8 @@
-[build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
-
-
 [project]
 name = "balchecker"
 version = "0.1.0"
 description = "A Flask webapp to connect to Phantom wallet and check a custom token balance."
 readme = "README.md"
-authors = [
-  { name = "Jacob Centner", email = "31484717+jcentner@users.noreply.github.com" },
-]
 dependencies = [
   "Flask>=2.0",
   "solana>=0.20",
@@ -29,26 +21,3 @@ start = { command = "python app.py" }
 Documentation = "https://github.com/Jacob Centner/balchecker/#readme"
 Issues = "https://github.com/Jacob Centner/balchecker//issues"
 Source = "https://github.com/Jacob Centner/balchecker/"
-
-[tool.hatch.envs.types]
-extra-dependencies = [
-  "mypy>=1.0.0",
-]
-[tool.hatch.envs.types.scripts]
-check = "mypy --install-types --non-interactive {args:src/balchecker/ tests}"
-
-[tool.coverage.run]
-source_pkgs = ["balchecker/", "tests"]
-branch = true
-parallel = true
-
-[tool.coverage.paths]
-balchecker/ = ["src/balchecker/", "*/balchecker//src/balchecker/"]
-tests = ["tests", "*/balchecker//tests"]
-
-[tool.coverage.report]
-exclude_lines = [
-  "no cov",
-  "if __name__ == .__main__.:",
-  "if TYPE_CHECKING:",
-]
